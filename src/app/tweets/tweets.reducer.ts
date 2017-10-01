@@ -4,15 +4,15 @@ import { Action } from '@ngrx/store';
 import { TweetsActions } from './tweets.actions';
 import { Tweet } from './tweet.model';
 
-export interface UserState {
+export interface TweetsState {
   tweets: Array<Tweet>;
 }
 
-export const initialState: UserState = {
+export const initialState: TweetsState = {
   tweets: []
 };
 
-export function userReducer(state = initialState, action: Action): UserState {
+export function tweetsReducer(state = initialState, action: Action): TweetsState {
   switch (action.type) {
 
     case TweetsActions.ADD_TWEET: {

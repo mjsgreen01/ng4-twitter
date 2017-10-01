@@ -9,6 +9,8 @@ import { Store } from '@ngrx/store';
 import { UserActions } from '../user/user.actions';
 import { User } from '../user/user.model';
 
+import * as appSelectors from '../selectors';
+
 @Component({
   selector: 'my-dashboard',
   templateUrl: './dashboard.component.html',
@@ -22,6 +24,8 @@ export class DashboardComponent implements OnDestroy, OnInit {
   testSub$: Observable<string>;
   user: User;
   user$: Observable<User>;
+  tweets$;
+  tweets;
   constructor(
     private fb: FormBuilder,
     private http: TransferHttp,
@@ -34,6 +38,10 @@ export class DashboardComponent implements OnDestroy, OnInit {
     this.user$ = this.store.select(state => state.user.user);
     this.user$.takeUntil(this.destroyed$)
       .subscribe(user => { this.user = user; });
+
+    this.tweets$ = this.store.select(appSelectors.getTweets);
+    this.tweets$.takeUntil(this.destroyed$)
+      .subscribe(tweets => { this.tweets = tweets; console.log(this.tweets) });
   }
 
   ngOnInit() {
